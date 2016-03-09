@@ -123,3 +123,8 @@ unsigned int RAM::Read(unsigned int addr)
 	// Retourne le contenu de la mémoire
 	return uiData;
 }
+
+
+void RAM::Write(unsigned int addr, unsigned int data) {
+	// TODO???
+}

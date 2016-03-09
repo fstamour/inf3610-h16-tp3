@@ -26,6 +26,14 @@ class Bubble : public sc_module
 		À compléter
 		
 		*/
+		sc_in_clk clk_port; // Horloge
+		//sc_out<unsigned int> address_port; // Adresse 
+		
+		//sc_inout<unsigned int> data_port; // Donnée
+		/*sc_out<bool> requestRead_port; // Requête au lecteur
+		sc_out<bool> requestWrite_port; // Requête à l’écrivain
+		sc_in<bool>	ack_port; // Accusé de réception
+		*/
 
 	
 		// Constructor

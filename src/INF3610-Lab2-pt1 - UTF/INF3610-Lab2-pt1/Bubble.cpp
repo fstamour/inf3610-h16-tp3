@@ -19,6 +19,8 @@ Bubble::Bubble( sc_module_name name )
 	À compléter
 	
 	*/
+	SC_THREAD(thread);
+	sensitive << clk_port;
 }
 
 
@@ -45,6 +47,7 @@ void Bubble::thread(void)
 	
 	*/
 
+	sc_stop();
 }
 
 

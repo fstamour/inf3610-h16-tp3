@@ -1,16 +1,16 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-//	Reader.cpp
+//	Writer.cpp
 //
 ///////////////////////////////////////////////////////////////////////////////
-#include "Reader.h"
+#include "Writer.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 //	Constructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Reader::Reader(sc_module_name name)
+Writer::Writer(sc_module_name name)
 /* À compléter */
 {
 	/*
@@ -25,35 +25,35 @@ Reader::Reader(sc_module_name name)
 //	Destructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Reader::~Reader()
+Writer::~Writer()
 {
 	/*
 
 	À compléter
 
 	*/
+	SC_THREAD(write_thread);
+	sensitive << clk_port;
 }
 
 
-unsigned int Reader::Read(unsigned int offset) {
+// Méthode
+unsigned int Writer::Write(unsigned int offset) {
+
 	/*
 
 	À compléter
 
 	*/
-	SC_THREAD(read_thread);
-	sensitive << clk_port;
-
 	return 0;
 }
 
-	/*
+/*
 
-	À compléter
+À compléter
 
-	*/
+*/
 
-void Reader::read_thread() {
-	
+void Writer::write_thread() {
+
 }
-
