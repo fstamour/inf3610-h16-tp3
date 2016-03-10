@@ -50,18 +50,18 @@ int sc_main(int arg_count, char **arg_value)
 	reader.dataPortRAM_port(ram);
 	writer.dataPortRAM_port(ram);
 
-	sc_buffer<unsigned int>
-	data_buf("data_buf"),
-	address_buf("address_buf");
+	sc_signal<unsigned int>
+		data_buf("data_buf"),
+		address_buf("address_buf");
 	bubble.data_port(data_buf);
 	reader.data_port(data_buf);
 
 	bubble.address_port(address_buf);
 	reader.address_port(address_buf);
 
-	sc_buffer<bool>
-	requestRead_buf("requestRead_buf"),
-	requestWrite_buf("requestWrite_buf"),
+	sc_signal <bool>
+		requestRead_buf("requestRead_buf"),
+		requestWrite_buf("requestWrite_buf"),
 	ack_buf("ack_buf");
 
 	bubble.requestRead_port(requestRead_buf);

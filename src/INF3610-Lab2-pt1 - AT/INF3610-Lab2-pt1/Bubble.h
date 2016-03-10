@@ -39,10 +39,27 @@ class Bubble : public sc_module
 		~Bubble();
 		
 	private:
+
+		enum state_t {
+			INIT,
+			READ,
+			SORT,
+			WRITE,
+			END
+		};
+
+		state_t state_ = INIT;
+		unsigned int nb_data_ = 0;
+		unsigned int* data_ = nullptr;
+		size_t data_index_ = 1;
+
 		// Process SystemC
 		SC_HAS_PROCESS(Bubble);
 		
 		void thread(void);
 		void bubbleSort(unsigned int *ptr, int counter);
+
+		unsigned int read(unsigned int address);
+		// TODO unsigned int write(unsigned int address, unsigned data);
 };
 
