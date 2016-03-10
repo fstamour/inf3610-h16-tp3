@@ -1,18 +1,24 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-//	Reader.cpp
+//	Writer.cpp
 //
 ///////////////////////////////////////////////////////////////////////////////
-#include "Reader.h"
+#include "Writer.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 //	Constructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Reader::Reader(sc_module_name name) : sc_module(name)
+Writer::Writer(sc_module_name name)
+/* À compléter */
 {
-	SC_THREAD(read_thread);
+	/*
+
+	À compléter
+
+	*/
+	SC_THREAD(write_thread);
 	sensitive << clk_port;
 }
 
@@ -21,7 +27,7 @@ Reader::Reader(sc_module_name name) : sc_module(name)
 //	Destructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Reader::~Reader()
+Writer::~Writer()
 {
 	/*
 
@@ -30,21 +36,13 @@ Reader::~Reader()
 	*/
 }
 
-	/*
 
-	À compléter
+/*
 
-	*/
+À compléter
 
-void Reader::read_thread() {
-	/* TODO
-	o Attendre une requête
-	o Lire la valeur de l’adresse
-	o Demander à la mémoire la donnée à l’adresse lue
-	o Envoyer un accusé de réception
-	o Enlever l’accusé de réception
-	*/
+*/
 
-	// dataPortRAM_port->Read(offset);
+void Writer::write_thread() {
+	// dataPortRAM_port->Write(addr, data);
 }
-
