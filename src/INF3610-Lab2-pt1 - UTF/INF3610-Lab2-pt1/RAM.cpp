@@ -126,5 +126,4 @@ unsigned int RAM::Read(unsigned int addr)
 
 
 void RAM::Write(unsigned int addr, unsigned int data) {
-	// TODO???
 }

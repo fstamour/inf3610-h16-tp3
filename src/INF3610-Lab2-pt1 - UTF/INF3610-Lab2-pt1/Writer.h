@@ -25,6 +25,7 @@ public:
 
 	*/
 	sc_in_clk clk_port; // Horloge
+	sc_port<LMBIF>	dataPortRAM_port;
 
 	// Constructor
 	Writer(sc_module_name name);
@@ -33,7 +34,7 @@ public:
 	~Writer();
 
 	// Méthode
-	virtual unsigned int Write(unsigned int offset);
+	virtual void Write(unsigned int addr, unsigned int data);
 
 private:
 	SC_HAS_PROCESS(Writer);

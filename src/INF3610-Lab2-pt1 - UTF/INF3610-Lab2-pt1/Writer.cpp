@@ -18,6 +18,8 @@ Writer::Writer(sc_module_name name)
 	À compléter
 
 	*/
+	SC_THREAD(write_thread);
+	sensitive << clk_port;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -32,20 +34,12 @@ Writer::~Writer()
 	À compléter
 
 	*/
-	SC_THREAD(write_thread);
-	sensitive << clk_port;
 }
 
 
 // Méthode
-unsigned int Writer::Write(unsigned int offset) {
-
-	/*
-
-	À compléter
-
-	*/
-	return 0;
+void Writer::Write(unsigned int addr, unsigned int data) {
+	dataPortRAM_port->Write(addr, data);
 }
 
 /*

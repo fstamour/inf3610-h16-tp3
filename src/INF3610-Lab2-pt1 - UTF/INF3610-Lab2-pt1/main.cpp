@@ -9,7 +9,8 @@
 #include "Writer.h"
 #include "DataRAM.h"
 
-#define RAMSIZE 0x400
+#define RAMSIZE 40
+// TODO 0x400
 
 // Global variables
 bool m_bError = false;
@@ -50,10 +51,34 @@ int sc_main(int arg_count, char **arg_value)
 	writer.clk_port(clk);
 	// Not DataRam
 
-	// Rendu la
-	sc_signal<unsigned int> buf1;
-	//bubble.data_port(buf1);
-	reader.data_port(buf1);
+	/* Pour la partie AT
+	sc_buffer<unsigned int> 
+		data_buf("data_buf"),
+		address_buf("address_buf");
+	bubble.data_port(data_buf);
+	reader.data_port(data_buf);
+
+	bubble.address_port(address_buf);
+	reader.address_port(address_buf);
+
+	sc_buffer<bool>
+		requestRead_buf("requestRead_buf"),
+		requestWrite_buf("requestWrite_buf"),
+		ack_buf("ack_buf");
+
+	bubble.requestRead_port(requestRead_buf);
+	bubble.requestWrite_port(requestWrite_buf);
+	bubble.ack_port(ack_buf);
+	reader.request_port(requestRead_buf);
+	reader.ack_port(ack_buf);*/
+
+	bubble.readPort(reader);
+	bubble.writePort(writer);
+	reader.dataPortRAM_port(ram);
+	writer.dataPortRAM_port(ram);
+
+	
+
 
 	// Démarrage de l'application
 	if (!m_bError)

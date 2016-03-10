@@ -18,7 +18,7 @@ class InterfaceWrite : public virtual sc_interface
 public:
 
 	// Méthode
-	virtual unsigned int Write(unsigned int offset) = 0;
+	virtual void Write(unsigned int addr, unsigned int data) = 0;
 
 };
 

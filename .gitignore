@@ -1,0 +1,10 @@
+
+# Visual Studio's
+*.opensdf
+*.sdf
+*.suo
+
+# Generated file
+Debug/
+ram
+

@@ -18,6 +18,8 @@ Reader::Reader(sc_module_name name)
 	À compléter
 
 	*/
+	SC_THREAD(read_thread);
+	sensitive << clk_port;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -41,10 +43,10 @@ unsigned int Reader::Read(unsigned int offset) {
 	À compléter
 
 	*/
-	SC_THREAD(read_thread);
-	sensitive << clk_port;
+	unsigned int data;
+	data = dataPortRAM_port->Read(offset);
 
-	return 0;
+	return data;
 }
 
 	/*
