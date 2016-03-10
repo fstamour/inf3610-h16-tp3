@@ -19,12 +19,6 @@ class Writer : public sc_module, public InterfaceWrite /* À compléter */
 {
 public:
 	// Ports
-	/*
-
-	À compléter
-
-	*/
-	sc_in_clk clk_port; // Horloge
 	sc_port<LMBIF>	dataPortRAM_port;
 
 	// Constructor
@@ -37,15 +31,5 @@ public:
 	virtual void Write(unsigned int addr, unsigned int data);
 
 private:
-	SC_HAS_PROCESS(Writer);
-
-	void write_thread();
-
-	/*
-
-	À compléter
-
-	*/
-
 };
 

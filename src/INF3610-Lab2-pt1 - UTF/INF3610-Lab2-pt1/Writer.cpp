@@ -10,44 +10,17 @@
 //	Constructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Writer::Writer(sc_module_name name)
-/* À compléter */
-{
-	/*
-
-	À compléter
-
-	*/
-	SC_THREAD(write_thread);
-	sensitive << clk_port;
-}
+Writer::Writer(sc_module_name name) : sc_module(name) {}
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 //	Destructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Writer::~Writer()
-{
-	/*
-
-	À compléter
-
-	*/
-}
+Writer::~Writer() {}
 
 
 // Méthode
 void Writer::Write(unsigned int addr, unsigned int data) {
 	dataPortRAM_port->Write(addr, data);
-}
-
-/*
-
-À compléter
-
-*/
-
-void Writer::write_thread() {
-
 }

@@ -11,16 +11,9 @@
 //	Constructeur
 //
 ///////////////////////////////////////////////////////////////////////////////
-Bubble::Bubble( sc_module_name name )
-/* À compléter */
+Bubble::Bubble(sc_module_name name): sc_module(name)
 {
-	/*
-	
-	À compléter
-	
-	*/
 	SC_THREAD(thread);
-	sensitive << clk_port;
 }
 
 
@@ -41,12 +34,6 @@ Bubble::~Bubble()
 ///////////////////////////////////////////////////////////////////////////////
 void Bubble::thread(void)
 {
-	/*
-	
-	À compléter
-	
-	*/
-	
 	unsigned int nb_data = readPort->Read(0);
 	unsigned int* data = new unsigned int[nb_data];
 	if (!data) {
@@ -78,6 +65,8 @@ void Bubble::thread(void)
 		// cout << "[Bubble] Write(" << i << ") = " << data[data_index] << endl;
 		writePort->Write(i, data[data_index]);
 	}
+
+	delete[] data;
 
 	sc_stop();
 }

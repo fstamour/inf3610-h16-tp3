@@ -10,52 +10,18 @@
 //	Constructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Reader::Reader(sc_module_name name)
-/* À compléter */
-{
-	/*
-
-	À compléter
-
-	*/
-	SC_THREAD(read_thread);
-	sensitive << clk_port;
-}
+Reader::Reader(sc_module_name name) : sc_module(name)
+{}
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 //	Destructor
 //
 ///////////////////////////////////////////////////////////////////////////////
-Reader::~Reader()
-{
-	/*
-
-	À compléter
-
-	*/
-}
+Reader::~Reader() {}
 
 
 unsigned int Reader::Read(unsigned int offset) {
-	/*
-
-	À compléter
-
-	*/
-	unsigned int data;
-	data = dataPortRAM_port->Read(offset);
-
-	return data;
-}
-
-	/*
-
-	À compléter
-
-	*/
-
-void Reader::read_thread() {
-	
+	return dataPortRAM_port->Read(offset);
 }
 
