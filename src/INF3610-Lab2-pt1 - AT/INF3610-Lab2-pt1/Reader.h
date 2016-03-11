@@ -27,7 +27,6 @@ class Reader : public sc_module
 		sc_in<unsigned int> address_port; // Adresse 
 		sc_out<bool> ack_port; // Accusé de réception
 		sc_in<bool> request_port; // Requête
-
 		
 		// Constructor
 		Reader( sc_module_name name );
@@ -39,12 +38,5 @@ class Reader : public sc_module
 		SC_HAS_PROCESS(Reader);
 
 		void read_thread();
-	
-	/*
-		
-	À compléter
-		
-	*/
-
 };
 

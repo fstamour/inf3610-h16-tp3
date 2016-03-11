@@ -30,7 +30,6 @@
   <ItemGroup>
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="DataRAM.h" />
-    <ClInclude Include="InterfaceWrite.h" />
     <ClInclude Include="LMBIF.h" />
     <ClInclude Include="RAM.h" />
     <ClInclude Include="Reader.h" />

@@ -22,22 +22,11 @@ Reader::Reader(sc_module_name name) : sc_module(name)
 //
 ///////////////////////////////////////////////////////////////////////////////
 Reader::~Reader()
-{
-	/*
+{}
 
-	À compléter
-
-	*/
-}
-
-	/*
-
-	À compléter
-
-	*/
 
 void Reader::read_thread() {
-	cout << "[Reader] Thread." << endl;
+	cout << "[Reader] Thread started." << endl;
 	while (1) {
 		// On attend une requête.	
 		do{

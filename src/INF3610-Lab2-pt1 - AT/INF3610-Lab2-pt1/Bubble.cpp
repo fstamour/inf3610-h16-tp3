@@ -11,7 +11,7 @@
 //	Constructeur
 //
 ///////////////////////////////////////////////////////////////////////////////
-Bubble::Bubble(sc_module_name name): sc_module(name)
+Bubble::Bubble(sc_module_name name) : sc_module(name)
 {
 	SC_THREAD(thread);
 	sensitive << clk_port;
@@ -35,8 +35,7 @@ Bubble::~Bubble()
 ///////////////////////////////////////////////////////////////////////////////
 void Bubble::thread(void)
 {
-	// wait(clk_port->posedge_event());
-	cout << "[Bubble] Thread." << endl;
+	cout << "[Bubble] Thread started." << endl;
 
 	while (1) {
 		switch (state_)
@@ -50,16 +49,13 @@ void Bubble::thread(void)
 				cerr << "[Bubble] ERROR Unable to create an array of " << nb_data_ << " elements (unsigned int).\n";
 				sc_stop();
 			}
-			/*cout << "[Bubble] nb_data_: " << nb_data_ << endl;
-			cout << "[Bubble] data_: " << data_ << endl;
-			cout << "[Bubble] data_index_: " << data_index_ << endl;*/
 			state_ = Bubble::READ;
 			break;
 		case Bubble::READ:
 		{
-			cout << "[Bubble] Read loop." << endl;
-			unsigned int addr = data_index_ * 4;
-			cout << "[Bubble] Read(" << addr << ") = ";
+			// cout << "[Bubble] Read loop." << endl;
+			unsigned int addr = (data_index_ + 1) * 4;
+			cout << "[Bubble] About to read(" << addr << ") = ";
 			data_[data_index_] = read(addr);
 			cout << data_[data_index_] << endl;
 			data_index_++;
@@ -69,15 +65,24 @@ void Bubble::thread(void)
 		}
 			break;
 		case Bubble::SORT:			
-			cout << "[Bubble] Sort." << endl;
+			cout << "[Bubble] Sorting..." << endl;
 			bubbleSort(data_, nb_data_);
-			data_index_ = 1;
-			state_ = Bubble::END; // TODO Write
+			wait(500, SC_MS);
+			data_index_ = 0;
+			state_ = Bubble::WRITE;
 			break;
 		case Bubble::WRITE:
-			cout << "[Bubble] Write loop." << endl;
+			{
+				// cout << "[Bubble] Write loop." << endl;
+				unsigned int addr = (data_index_ + 1) * 4;
+				cout << "[Bubble] About to write(" << addr << ", " << data_[data_index_] << ")\n";
+				write(addr, data_[data_index_]);
+				data_index_++;
+				if (data_index_ >= nb_data_) {
+					state_ = Bubble::END;
+				}
+			}
 			break;
-
 		default:
 			cerr << "[Bubble] ERROR Invalid state." << endl;
 		case Bubble::END:
@@ -86,31 +91,6 @@ void Bubble::thread(void)
 			return;
 		}
 	}
-#if 0
-	/*** Read ***/
-	// cout << hex;
-	for (size_t i = 4, data_index = 0; i < (nb_data + 1) * 4; i += 4, ++data_index) {
-		data[data_index] = read(i);
-		cout << "[Bubble] Read(" << i << ") = " << data[data_index] << endl;
-	}
-
-	
-	/// Being extra careful.
-	unsigned int previous_data = data[0];
-	for (size_t i = 1; i < nb_data; ++i) {
-		if (previous_data > data[i]) {
-			cerr << "[Bubble] ERROR Data is not sorted.\n";
-		}
-		previous_data = data[i];
-	}
-
-	/*** Write ***/
-	for (size_t i = 4, data_index = 0; i < (nb_data + 1) * 4; i += 4, ++data_index) {
-		// cout << "[Bubble] Write(" << i << ") = " << data[data_index] << endl;
-	//	writePort->Write(i, data[data_index]);
-	}
-
-#endif
 }
 
 
@@ -168,9 +148,34 @@ unsigned int Bubble::read(unsigned int address) {
 	requestRead_port.write(false);
 	// cout << "[Bubble] Request removed." << endl;
 
+	// Attendre que l'accusé de réception soit enlevé.
 	do {
 		wait(clk_port->posedge_event());
 	} while (ack_port.read());
 
 	return data;
+}
+
+// Helper
+void Bubble::write(unsigned int address, unsigned data) {
+	// Envoyer l’adresse et le data à être écrit.
+	address_port.write(address);
+	data_port.write(data);
+
+	// Envoyer une requête
+	// cout << "[Bubble] Sending a request to writer." << endl;
+	requestWrite_port.write(true);
+
+	// Attendre un accusé de réception
+	do {
+		wait(clk_port->posedge_event());
+	} while (!ack_port.read());
+
+	// Enlever la requête
+	requestWrite_port.write(false);
+
+	// Attendre que l'accusé de réception soit enlevé.
+	do {
+		wait(clk_port->posedge_event());
+	} while (ack_port.read());
 }

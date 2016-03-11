@@ -35,40 +35,44 @@ int sc_main(int arg_count, char **arg_value)
 	Writer writer("Ecrivain");
 	Bubble bubble("TriABulle");
 
-	/*
-	
-	À compléter
-	
-	*/
 	/*** Connections ***/
 	/// Clock
 	bubble.clk_port(clk);
 	reader.clk_port(clk);
 	writer.clk_port(clk);
-	// Not DataRam
 
+	/// Ram
 	reader.dataPortRAM_port(ram);
 	writer.dataPortRAM_port(ram);
-
-	sc_signal<unsigned int>
-		data_buf("data_buf"),
-		address_buf("address_buf");
+	
+	/// Data
+	sc_signal<unsigned int, SC_MANY_WRITERS> data_buf("data_buf");
+	sc_signal<unsigned int>	address_buf("address_buf");
 	bubble.data_port(data_buf);
 	reader.data_port(data_buf);
+	writer.data_port(data_buf);
 
+	/// Address
 	bubble.address_port(address_buf);
 	reader.address_port(address_buf);
+	writer.address_port(address_buf);
 
+	/// Request
 	sc_signal <bool>
 		requestRead_buf("requestRead_buf"),
-		requestWrite_buf("requestWrite_buf"),
-	ack_buf("ack_buf");
-
+		requestWrite_buf("requestWrite_buf");
+	
 	bubble.requestRead_port(requestRead_buf);
-	bubble.requestWrite_port(requestWrite_buf);
-	bubble.ack_port(ack_buf);
 	reader.request_port(requestRead_buf);
+
+	bubble.requestWrite_port(requestWrite_buf);
+	writer.request_port(requestWrite_buf);
+
+	/// ACK
+	sc_signal<bool, SC_MANY_WRITERS> ack_buf("ack_buf");
+	bubble.ack_port(ack_buf);	
 	reader.ack_port(ack_buf);
+	writer.ack_port(ack_buf);
 
 
 	// Démarrage de l'application
